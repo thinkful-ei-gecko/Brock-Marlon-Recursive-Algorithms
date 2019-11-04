@@ -77,3 +77,51 @@ function factorial(num){
   }
   return num * factorial(num - 1)
 }
+
+// Maze worker
+const wayOut = (maze, column, row, path =[]) => {
+
+  let exitY = maze[0].length - 1;
+  let exitX = maze.length - 1;
+
+  if (column === exitX && row === exitY) {
+    return path;
+  }
+
+  if(column < exitY && path[path.length - 1] !== 'L') {
+    if (maze[column][row + 1] === ' ' || maze[column][row + 1] === 'e') {
+      path.push('R');
+      return wayOut(maze, column, row + 1, path)
+    }
+  }
+  if (column < exitX && path[path.length -1] !== 'U') {
+    if (maze[column + 1][row] === ' ' || maze[column + 1][row] === 'e') {
+      path.push('D');
+      return wayOut(maze, column + 1, row, path)
+    }
+  }
+  if (row > 0 && path[path.length -1] !== 'R') {
+    if (maze[column][row - 1] === ' ' || maze[column][row - 1] === 'e') {
+      path.push('L');
+      return wayOut(maze, column, row - 1, path)
+    }
+  }
+  if (column > 0 && path[path.length -1] !== 'D') {
+    if (maze[column - 1][row] === ' ' || maze[column - 1][row] === 'e') {
+      path.push('U');
+
+      return wayOut(maze, column - 1, row, path)
+    }
+  }
+
+}
+
+var myMaze = [
+  [' ', ' ', ' ', '*', ' ', ' ', ' '],
+  ['*', '*', ' ', '*', ' ', '*', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', '*', '*', '*', '*', '*', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', 'e']
+];
+
+console.log(wayOut(myMaze, 0, 0));
