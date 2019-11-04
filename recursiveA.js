@@ -30,3 +30,19 @@ function powerCalculator(int, exp){
   }
   
   powerCalculator(10, 3);
+
+  function reverseString(str){
+    if (str === ''){
+      return '';
+    }
+    const newChar = str[str.length - 1];
+    return newChar + reverseString(str.slice(0, str.length-1));
+  }
+
+  function nTriangularNumber(num){
+    if (num === 0){
+      return null;
+    }
+    
+    return num + nTriangularNumber(num - 1);
+}
